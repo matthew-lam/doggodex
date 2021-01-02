@@ -12,9 +12,19 @@ def get_random_dog_images(quantity=20):
   images = requests.get(url_string)
   return images
 
-def get_dog_breed_image(breed):
-  pass
+def check_url_contains_valid_image(image_url):
+  """
+  Checks if a url has a valid image.
+  It does this by checking the media type in the header of the http request response.
+  args: image_url -- URL with what we think is an image.
+  returns: (boolean) -- True OR False, if url contains a valid image.
+  """
+  valid_formats = ("image/png", "image/jpeg", "image/jpg")
+  url_contents = requests.get(image_url)
+  if url_contents.headers["content-type"] in valid_formats:
+      return True
+  return False
 
-def json_to_serializable_format(json_images):
-  pass
 
+def check_dir_contains_valid_image(image_src):
+  pass

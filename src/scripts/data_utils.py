@@ -1,5 +1,8 @@
 import get_images as dbc_images
 
+###TODO: check for correct dimensions --> if no --> pad image with black border to correct dimension
+###                                   \--> if yes --> feed into CNN
+
 def is_correct_dimensions(image):
   """
   Checks if the image has the correct dimensions to be able to be fed into the CNN properly.

@@ -1,2 +1,2 @@
-image_data_res_WIDTH = 500
-image_data_res_HEIGHT = 375
+image_WIDTH = 500
+image_HEIGHT = 375

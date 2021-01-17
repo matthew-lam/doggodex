@@ -52,9 +52,9 @@ def save_image_locally(url, dir):
           f.write(chunk)
 
 # Define `main()` function
-def main():
-  save_image_locally('https://images.dog.ceo/breeds/chow/n02112137_1251.jpg', dog_pic_dir)
+# def main():
+#   save_image_locally('https://images.dog.ceo/breeds/chow/n02112137_1251.jpg', dog_pic_dir)
 
 # Execute `main()` function
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

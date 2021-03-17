@@ -50,11 +50,3 @@ def save_image_locally(url, dir):
       with open(dir + file_name, 'wb') as f:
         for chunk in r:
           f.write(chunk)
-
-# Define `main()` function
-# def main():
-#   save_image_locally('https://images.dog.ceo/breeds/chow/n02112137_1251.jpg', dog_pic_dir)
-
-# Execute `main()` function
-# if __name__ == '__main__':
-#     main()

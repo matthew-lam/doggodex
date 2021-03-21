@@ -1,18 +1,26 @@
-# Get random images from dog.ceo API
-# This can be used as an input in a trained neural network
 import os
 import requests
 
 dog_pic_dir = os.getcwd() + '/dog_pics/'
 
+
+def _json_to_list_of_urls(json):
+  # When querying for a random image from dog.ceo, extract the URLs of the images and return it in a list form
+  return json['message']
+
+
 def get_random_dog_images(quantity=20):
+  # Get random images from dog.ceo API
+  # This can be used as an input in a trained neural network
   """ Gets random dog images using a GET request.
   kw args: quantity -- amount of random images to get
-  returns: a JSON containing a message array of URL(s) that contain .jpg(s) of dog photos.
+  returns: a list containing URL(s) that contain .jpg(s) of dog photos.
   """
   url_string = 'https://dog.ceo/api/breeds/image/random/' + str(quantity)
   images = requests.get(url_string)
+  image_list = _json_to_list_of_urls(images)
   return images
+
 
 def check_url_contains_valid_image(image_url):
   """
@@ -27,14 +35,6 @@ def check_url_contains_valid_image(image_url):
       return True
   return False
 
-
-def check_dir_contains_valid_image(image_src):
-  """
-  Checks if an file from a local directory is a valid image.
-  args: image_src -- (string) directory of file
-  returns: (boolean) -- True OR False, if file is a valid image.
-  """
-  pass
 
 def save_image_locally(url, dir):
   """

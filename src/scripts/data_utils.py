@@ -5,11 +5,15 @@ import numpy as np
 
 import constants
 
-DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/aug_'
+DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/'
 
 
-def pad_images_black_border(image):
-  # Pads an image with a black border so that it conforms to the dimensions needed for the CNN.
+def pad_images_black_border(image, dir):
+  """ Pads an image with a black border so that it conforms to the dimensions needed for the CNN.
+    It then writes and saves it in a folder.
+  kw args: image -- a string file path that should contain an image.
+  returns: None
+  """
   BLACK = [0, 0, 0]
   img = cv2.imread(image)
   height, width = img.shape[:2]
@@ -26,11 +30,22 @@ def pad_images_black_border(image):
   )
 
   # Save augmented image into an augmented pics folder
-  file_name = os.path.basename(image)
-  if not cv2.imwrite(DOG_PIC_DIR + file_name, padded_image):
+  file_name = 'aug_' + os.path.basename(image)
+  if not cv2.imwrite(dir + '/' + file_name, padded_image):
      raise Exception("Could not write image")
 
 
-def json_to_list_of_urls(json):
-  # When querying for a random image from dog.ceo, extract the URLs of the images and return it in a list form
-  return json['message']
+def process_all_images_to_fit(dir):
+  # Custom script -- should take the stanford dogs dataset directory and folders/files and either:
+  #     - save the files to DOG_PIC_DIR if there is no need for augmentation for dimensions to fit CNN
+  #     - augment the photos first and then save the files to DOG_PIC_DIR
+  
+  # for all photos in parent folder
+  #   look in child folder
+  #     for all photos in child folder -- pad_images_black_border
+  for root, folders, files in os.walk(dir):
+    for dog_breeds in folders:
+      if not os.path.exists(DOG_PIC_DIR + dog_breeds):
+        os.makedirs(DOG_PIC_DIR + dog_breeds)
+    for name in files:
+      pad_images_black_border(os.path.join(root, name),DOG_PIC_DIR + os.path.basename(root))

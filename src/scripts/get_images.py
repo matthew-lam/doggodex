@@ -19,7 +19,14 @@ def get_random_dog_images(quantity=20):
   url_string = 'https://dog.ceo/api/breeds/image/random/' + str(quantity)
   images = requests.get(url_string)
   image_list = _json_to_list_of_urls(images)
-  return images
+  return image_list
+
+
+def get_dog_breed_random_images(breed, quantity):
+  url_string = 'https://dog.ceo/api/breed/{breed}/images/random/{quantity}'.format(breed=breed, quantity=quantity)
+  images = requests.get(url_string)
+  image_list = _json_to_list_of_urls(images.json())
+  return image_list
 
 
 def check_url_contains_valid_image(image_url):

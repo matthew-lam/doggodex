@@ -1,4 +1,7 @@
-import os
+import os, stat
+
+if os.name == 'nt':
+    import win32api, win32con
 
 import cv2
 import numpy as np
@@ -6,7 +9,6 @@ import numpy as np
 import constants
 
 DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/'
-
 
 def pad_images_black_border(image, dir):
   """ Pads an image with a black border so that it conforms to the dimensions needed for the CNN.
@@ -39,13 +41,21 @@ def process_all_images_to_fit(dir):
   # Custom script -- should take the stanford dogs dataset directory and folders/files and either:
   #     - save the files to DOG_PIC_DIR if there is no need for augmentation for dimensions to fit CNN
   #     - augment the photos first and then save the files to DOG_PIC_DIR
-  
-  # for all photos in parent folder
-  #   look in child folder
-  #     for all photos in child folder -- pad_images_black_border
   for root, folders, files in os.walk(dir):
     for dog_breeds in folders:
       if not os.path.exists(DOG_PIC_DIR + dog_breeds):
         os.makedirs(DOG_PIC_DIR + dog_breeds)
     for name in files:
-      pad_images_black_border(os.path.join(root, name),DOG_PIC_DIR + os.path.basename(root))
+      # If hidden file is detected, skip iteration.
+      if is_hidden_file(name):
+        continue
+      pad_images_black_border(os.path.join(root, name),
+                              DOG_PIC_DIR + os.path.basename(root))
+
+
+def is_hidden_file(filepath):
+    if os.name== 'nt':
+        attribute = win32api.GetFileAttributes(filepath)
+        return attribute & (win32con.FILE_ATTRIBUTE_HIDDEN | win32con.FILE_ATTRIBUTE_SYSTEM)
+    else:
+        return filepath.startswith('.') #linux-osx

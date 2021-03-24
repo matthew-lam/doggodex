@@ -1,6 +1,5 @@
 import os
-from scripts.data_utils import pad_images_black_border, process_all_images_to_fit
-from scripts.get_images import get_dog_breed_random_images, save_image_locally
+from scripts.data_utils import pad_images_black_border, process_all_images_to_fit, split_dataset
 from model.conv_net import run_model
 
 def main():
@@ -12,7 +11,9 @@ def main():
     # Comment out this function once pre-processing of dataset is complete.
     process_all_images_to_fit(filepath)
 
-    # run_model()
+    split_dataset(0.8)
+
+    run_model()
 
 
 if __name__ == '__main__':

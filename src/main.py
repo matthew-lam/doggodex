@@ -9,9 +9,9 @@ def main():
 
     # Pre-process these by making sure all photos will fit CNN with regards to image dimensions.
     # Comment out this function once pre-processing of dataset is complete.
-    process_all_images_to_fit(filepath)
+    # process_all_images_to_fit(filepath)
 
-    split_dataset(0.8)
+    # split_dataset(0.8)
 
     run_model()
 

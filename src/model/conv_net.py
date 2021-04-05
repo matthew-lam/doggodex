@@ -1,45 +1,58 @@
 import os
 import numpy as np
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Flatten, Dense, Dropout, GlobalAveragePooling2D
+from tensorflow.keras.models import Model
+from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from constants import IMAGE_HEIGHT, IMAGE_WIDTH
 
-TRAINING_SET_DIR = os.getcwd() + '/augmented_dog_pics_1/training_set/'
-VALIDATION_SET_DIR = os.getcwd() + '/augmented_dog_pics_1/validation_set/'
+# Replace these dirs as needed
+TRAINING_SET_DIR = os.getcwd() + '/augmented_dog_pics/training_set/' 
+VALIDATION_SET_DIR = os.getcwd() + '/augmented_dog_pics/validation_set/'
 
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'True' # Uncomment if getting 'OMP: ERROR#15' and vice versa.
-
+IMAGE_WIDTH = 500
+IMAGE_HEIGHT = 375
 
 def run_model():
-    model = Sequential()
-    model.add(Conv2D(filters=64, kernel_size=5, activation='relu',
-                     input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3)))
-    model.add(MaxPooling2D(pool_size=5))
-    model.add(Conv2D(filters=64, kernel_size=5, activation='relu'))
-    model.add(MaxPooling2D(pool_size=5))
-    model.add(Conv2D(filters=64, kernel_size=3, activation='relu'))
-    model.add(MaxPooling2D(pool_size=3))
-    model.add(Flatten())
-    model.add(Dense(4, activation='relu'))
-    model.add(Dense(2, activation='softmax'))
+    resnet = ResNet50(include_top=False, weights="imagenet")
+    resnet_output = resnet.output
 
+    resnet_output = GlobalAveragePooling2D()(resnet_output)
+
+    dropout = Dropout(0.2)(resnet_output)
+    predictions = Dense(120, activation ='softmax')(dropout)
+    model = Model(inputs = resnet.input, outputs = predictions)
+
+    for layer in resnet.layers:
+      layer.trainable = False
+
+    # Summarise and compile model
     model.summary()
-
     model.compile(loss='categorical_crossentropy',
-                  optimizer='rmsprop',
+                  optimizer='adam',
                   metrics=['accuracy'])
 
-    generator_data = ImageDataGenerator().flow_from_directory(
+    # Generate training and validation data with augmentations
+    gen_training = ImageDataGenerator(horizontal_flip=True, vertical_flip=True)
+    training_data = gen_training.flow_from_directory(
         directory=TRAINING_SET_DIR,
         target_size=(IMAGE_HEIGHT, IMAGE_WIDTH),
         class_mode='categorical',
     )
 
-    model.fit_generator(
-        generator_data,
-        steps_per_epoch=2000 // 32,
-        epochs=50,
-        validation_data=VALIDATION_SET_DIR,
-        validation_steps=800 // 32
+    gen_validation = ImageDataGenerator(horizontal_flip=True, vertical_flip=True)
+    validating_data = gen_validation.flow_from_directory(
+        directory=VALIDATION_SET_DIR,
+        target_size=(IMAGE_HEIGHT, IMAGE_WIDTH),
+        class_mode='categorical',
     )
+
+    # Fit model
+    model.fit_generator(
+        training_data,
+        steps_per_epoch=training_data.n // training_data.batch_size,
+        epochs=15,
+        validation_data=validating_data,
+        validation_steps=validating_data.n // validating_data.batch_size
+    )
+
+    model.save('dog_model.h5')

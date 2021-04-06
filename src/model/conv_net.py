@@ -18,7 +18,7 @@ def run_model():
 
     resnet_output = GlobalAveragePooling2D()(resnet_output)
 
-    dropout = Dropout(0.2)(resnet_output)
+    dropout = Dropout(0.15)(resnet_output)
     predictions = Dense(120, activation ='softmax')(dropout)
     model = Model(inputs = resnet.input, outputs = predictions)
 
@@ -32,14 +32,14 @@ def run_model():
                   metrics=['accuracy'])
 
     # Generate training and validation data with augmentations
-    gen_training = ImageDataGenerator(horizontal_flip=True, vertical_flip=True)
+    gen_training = ImageDataGenerator()
     training_data = gen_training.flow_from_directory(
         directory=TRAINING_SET_DIR,
         target_size=(IMAGE_HEIGHT, IMAGE_WIDTH),
         class_mode='categorical',
     )
 
-    gen_validation = ImageDataGenerator(horizontal_flip=True, vertical_flip=True)
+    gen_validation = ImageDataGenerator()
     validating_data = gen_validation.flow_from_directory(
         directory=VALIDATION_SET_DIR,
         target_size=(IMAGE_HEIGHT, IMAGE_WIDTH),

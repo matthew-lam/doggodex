@@ -11,8 +11,10 @@ def load_model():
     model = keras.models.load_model(os.getcwd() + '/src/model/dog_model', compile=False)
     print("Model loaded.")
 
+
 @app.route("/updog", methods=["POST"])
 def predict()
+    pass
 
 
 if __name__ == "__main__":

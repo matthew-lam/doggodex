@@ -19,26 +19,20 @@ DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/'
 
 def pad_images_black_border(image, dir=None):
   # Pad image with a border so that smaller images fit in to the CNN
-  print('pad_images_black_border ' + image)
   BLACK = [0, 0, 0]
   img = cv2.imread(image)
   height, width = img.shape[:2]
 
   border_height = (constants.IMAGE_HEIGHT - height) / 2
-  border_height_2 = border_height
-  if isinstance(border_height, float):
-    border_height = math.floor(border_height)
-    border_height_2 = math.ceil(border_height)
-
   border_width = (constants.IMAGE_WIDTH - width) / 2
-  border_width_2 = border_width
-  if isinstance(border_width, float):
-    border_width = math.floor(border_width)
-    border_width_2 = math.ceil(border_width)
 
   padded_image = cv2.copyMakeBorder(
-      img, border_height, border_height_2, border_width, border_width_2, cv2.BORDER_CONSTANT, value=BLACK
+      img,
+      math.ceil(border_height), math.floor(border_height), math.ceil(
+          border_width), math.floor(border_width),
+      cv2.BORDER_CONSTANT, value=BLACK
   )
+
   if dir is None:
     return padded_image
   elif dir:
@@ -48,37 +42,38 @@ def pad_images_black_border(image, dir=None):
       raise Exception("Could not write image")
 
 
-def calculate_aspect_ratio_new_dims(width, height):
-  # If height > max height -- we want to apply borders to the sides to maintain aspect ratio for shrinking
-  ratio = constants.IMAGE_HEIGHT/constants.IMAGE_WIDTH
-  if height > constants.IMAGE_HEIGHT:
-    width = height / ratio
-  # If width > max width -- we want to apply borders to the top and bottom to maintain aspect ratio for shrinking
-  if width > constants.IMAGE_WIDTH:
-    height = ratio * width
-  return(width, height)
+def scale(source, target) -> (int, int):
+    width, height = source
+    max_width, max_height = target
+
+    # if both width, height is smaller then keep them
+    if (width <= max_width) and (height <= max_height):
+        return (width, height)
+    # if they're both bigger, then scale it down based on whichever is bigger.
+    else:
+        new_x, new_y = width, height
+        if width/max_width >= height/max_height:
+            # height is bigger, so that will need to scale to target height.
+            new_x = max_width
+            new_y = height * (max_width/width)
+        else:
+            new_x = width * (max_height/height)
+            new_y = max_height
+        return (int(new_x), int(new_y))
 
 
 def downscale_image(image, dir=None):
-  # Pad image with a border to upscale image to fit needed aspect ratio (4:3), then shrink image to fit CNN input
-  print('downscale_image ' + image)
+  # Scale down images to retain quality and then pad them with a border to fit into CNN input
   BLACK = [0, 0, 0]
   img = cv2.imread(image)
   height, width = img.shape[:2]
 
-  print(height, width)
-
-  new_height, new_width = calculate_aspect_ratio_new_dims(height, width)
-  if int(new_height) > height:
-    # do nothing
-  if int(new_width) > width:
-    # do nothing
-
-
-  print(new_height, new_width)
+  new_width, new_height = scale((width, height), (constants.IMAGE_WIDTH, constants.IMAGE_HEIGHT))
+  border_width = constants.IMAGE_WIDTH - new_width
+  border_height = constants.IMAGE_HEIGHT - new_height
 
   padded_image = cv2.copyMakeBorder(
-      img, border_height, border_height_2, border_width, border_width_2, cv2.BORDER_CONSTANT, value=BLACK
+      img, border_height, 0, border_width, 0, cv2.BORDER_CONSTANT, value=BLACK
   )
 
   padded_image = cv2.resize(padded_image, (constants.IMAGE_WIDTH,

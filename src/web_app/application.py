@@ -2,7 +2,7 @@ import flask
 import os
 from tensorflow import keras
 
-app = flask.Flask(__name__)
+application = flask.Flask(__name__)
 model = None
 
 
@@ -12,13 +12,15 @@ def load_model():
     print("Model loaded.")
 
 
-@app.route("/updog", methods=["POST"])
-def predict()
-    pass
+@application.route("/updog")
+def predict():
+    print('testing -- it works!!')
+    return ('hello world')
 
 
 if __name__ == "__main__":
     print(("* Loading Keras model and Flask starting server..."
         "please wait until server has fully started"))
     load_model()
-    app.run()
+    application.debug = True
+    application.run()

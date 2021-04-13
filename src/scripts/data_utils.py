@@ -2,13 +2,12 @@ import os
 import stat
 import shutil
 import math
-import cv2
+from PIL import Image, ImageOps
 
 if os.name == 'nt':
     import win32api
     import win32con
 
-import cv2
 import numpy as np
 from sklearn.model_selection import train_test_split
 
@@ -19,27 +18,26 @@ DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/'
 
 def pad_images_black_border(image, dir=None):
   # Pad image with a border so that smaller images fit in to the CNN
-  BLACK = [0, 0, 0]
-  img = cv2.imread(image)
-  height, width = img.shape[:2]
+  print('big pad')
+  img = Image.open(image)
+  width, height = img.size
+  if img.mode != "RGB":
+        img = img.convert("RGB")
 
-  border_height = (constants.IMAGE_HEIGHT - height) / 2
-  border_width = (constants.IMAGE_WIDTH - width) / 2
+  border_height = (constants.IMAGE_HEIGHT - height)
+  border_width = (constants.IMAGE_WIDTH - width)
 
-  padded_image = cv2.copyMakeBorder(
-      img,
-      math.ceil(border_height), math.floor(border_height), math.ceil(
-          border_width), math.floor(border_width),
-      cv2.BORDER_CONSTANT, value=BLACK
-  )
+  border = (math.ceil(border_width/2), math.ceil(border_height/2),
+            math.floor(border_width/2), math.floor(border_height/2))
+
+  padded_image = ImageOps.expand(img, border=border)
 
   if dir is None:
     return padded_image
   elif dir:
     # Save augmented image into an augmented pics folder
     file_name = 'aug_' + os.path.basename(image)
-    if not cv2.imwrite(dir + '/' + file_name, padded_image):
-      raise Exception("Could not write image")
+    padded_image.save(os.path.join(dir + '/' + file_name), "JPEG")
 
 
 def scale(source, target) -> (int, int):
@@ -64,42 +62,44 @@ def scale(source, target) -> (int, int):
 
 def downscale_image(image, dir=None):
   # Scale down images to retain quality and then pad them with a border to fit into CNN input
-  BLACK = [0, 0, 0]
-  img = cv2.imread(image)
-  height, width = img.shape[:2]
+  print('downscale and shit')
+  img = Image.open(image)
+  width, height = img.size
+  if img.mode != "RGB":
+        img = img.convert("RGB")
 
-  new_width, new_height = scale((width, height), (constants.IMAGE_WIDTH, constants.IMAGE_HEIGHT))
+  new_width, new_height = scale(
+      (width, height), (constants.IMAGE_WIDTH, constants.IMAGE_HEIGHT))
+
   border_width = constants.IMAGE_WIDTH - new_width
   border_height = constants.IMAGE_HEIGHT - new_height
 
-  padded_image = cv2.copyMakeBorder(
-      img, border_height, 0, border_width, 0, cv2.BORDER_CONSTANT, value=BLACK
-  )
+  edited_image = img.resize((new_width, new_height))
+  border = (border_width, border_height, 0, 0)
 
-  padded_image = cv2.resize(padded_image, (constants.IMAGE_WIDTH,
-                                           constants.IMAGE_HEIGHT), interpolation=cv2.INTER_AREA)
+  padded_image = ImageOps.expand(edited_image, border=border)
+
   if dir is None:
     return padded_image
   elif dir:
     # Save augmented image into an augmented pics folder
     file_name = 'aug_' + os.path.basename(image)
-    if not cv2.imwrite(dir + '/' + file_name, padded_image):
-      raise Exception("Could not write image")
+    padded_image.save(os.path.join(dir + '/' + file_name), "JPEG")
 
 
 def prepare_image(image, dir=None):
   # Does not save it to a directory if dir is None.
   ### Flask --> post request --> saves image to a local path on disk --> use that path to get the image --> process --> predict --> discard/delete image
-  img = cv2.imread(image)
-  height, width = img.shape[:2]
+  img = Image.open(image)
+  width, height = img.size
   processed_image = None
 
   if height > constants.IMAGE_HEIGHT or width > constants.IMAGE_WIDTH:
     processed_image = downscale_image(image, dir)
-  
+
   if height <= constants.IMAGE_HEIGHT and width <= constants.IMAGE_WIDTH:
     processed_image = pad_images_black_border(image, dir)
-  
+
   return processed_image
 
 

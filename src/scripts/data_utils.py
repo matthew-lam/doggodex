@@ -18,7 +18,6 @@ DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/'
 
 def pad_images_black_border(image, dir=None):
   # Pad image with a border so that smaller images fit in to the CNN
-  print('big pad')
   img = Image.open(image)
   width, height = img.size
   if img.mode != "RGB":
@@ -62,7 +61,6 @@ def scale(source, target) -> (int, int):
 
 def downscale_image(image, dir=None):
   # Scale down images to retain quality and then pad them with a border to fit into CNN input
-  print('downscale and shit')
   img = Image.open(image)
   width, height = img.size
   if img.mode != "RGB":

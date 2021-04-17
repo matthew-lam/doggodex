@@ -1,18 +1,29 @@
-import flask
+from flask import Flask, render_template
 import os
 from tensorflow import keras
 
-app = flask.Flask(__name__)
+application = Flask(__name__)
 model = None
 
 
+### Model
 def load_model():
     global model
-    model = keras.models.load_model(os.getcwd() + '/src/model/dog_model', compile=False)
+    model = keras.models.load_model(
+        os.getcwd() + '/src/model/dog_model', compile=False)
     print("Model loaded.")
 
 
-@app.route("/updog")
+### Routes
+@application.route("/")
+def landing():
+    return render_template('index.html')
+
+@application.route("/motivation")
+def about():
+    return render_template('motivation.html')
+
+@application.route("/updog")
 def predict():
     print('testing -- it works!!')
     return ('hello world')
@@ -20,7 +31,7 @@ def predict():
 
 if __name__ == "__main__":
     print(("* Loading Keras model and Flask starting server..."
-        "please wait until server has fully started"))
+           "please wait until server has fully started"))
     load_model()
-    app.debug = True
-    app.run()
+    application.debug = True
+    application.run()

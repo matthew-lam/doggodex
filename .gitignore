@@ -4,3 +4,4 @@ augmented_dog_pics
 test_main.py
 dog-env
 .python-version
+.env

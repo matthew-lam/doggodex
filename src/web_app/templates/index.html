@@ -2,35 +2,47 @@
 
 {% block content %}
 <div class="container">
+
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
             <h1 class="display-2">Doggodex</h1>
         </div>
     </div>
+
     <hr>
+
     <div class="row">
         <div class="col-sm">
-            Your image
+            <small class="text-muted">Your image</small>
         </div>
         <div class="col-sm">
-            Prediction result
+            <small class="text-muted">Prediction result</small>
         </div>
     </div>
+
     <div class="row">
         <div class="col-sm">
-            1 of 2
+            <form action="{{ url_for('bp.updog') }}" class="dropzone">
+                <div class="dz-message" data-dz-message>
+                    <span>Click or drag to upload a file</span>
+                </div>
+            </form>
         </div>
         <div class="col-sm">
-            2 of 2
+            <samp><img src="http://i.imgur.com/6jr3M0j.png" class="img-fluid"></samp>
         </div>
     </div>
+
     <hr>
+
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
             <button>Submit</button>
         </div>
     </div>
+
     <hr>
+    
     <p class="lead">What is Doggodex?</p>
     <p>This is a quick mockup design. <br> This is placeholder text to add content and filler to get a feel for the design.</p>
 </div>

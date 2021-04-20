@@ -13,37 +13,32 @@
 
     <div class="row">
         <div class="col-sm">
-            <small class="text-muted">Your image</small>
-        </div>
-        <div class="col-sm">
-            <small class="text-muted">Prediction result</small>
+            <small class="text-muted">Upload an image of your dog!</small>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm">
-            <form action="{{ url_for('bp.updog') }}" class="dropzone">
-                <div class="dz-message" data-dz-message>
-                    <span>Click or drag to upload a file</span>
-                </div>
+            <form method="POST" action="{{ url_for('bp.index') }}" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+                {{ form.file }}
+                {{ form.recaptcha }}
+                {{ form.submit }}     
             </form>
         </div>
-        <div class="col-sm">
-            <samp><img src="http://i.imgur.com/6jr3M0j.png" class="img-fluid"></samp>
-        </div>
     </div>
 
     <hr>
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <button>Submit</button>
-        </div>
-    </div>
-
-    <hr>
-    
-    <p class="lead">What is Doggodex?</p>
-    <p>This is a quick mockup design. <br> This is placeholder text to add content and filler to get a feel for the design.</p>
+    <p class="lead">Instructions</p>
+    <p>Upload a picture of your dog using the file uploader above. <br> Once it is finished uploading, click the submit
+        button and Doggodex will try to predict what breed your dog is.</p>
+    <br>
+    <p class="lead">What <i>exactly</i> is Doggodex?</p>
+    <p> Doggodex is a dog breed classifier.
+        It is a machine learning project in which a model will take in an image (of a dog, preferably) as an input and
+        it will
+        try to classify what breed of dog is resembled in the submitted image.</p>
 </div>
 {% endblock %}

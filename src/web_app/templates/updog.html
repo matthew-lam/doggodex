@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <h1 class="display-2">Doggodex</h1>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm">
+            <small class="text-muted">Your image</small>
+        </div>
+        <div class="col-sm">
+            <small class="text-muted">Prediction result</small>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <img src="{{ image_path }}" alt="You aren't supposed to be here yet!">
+        </div>
+        <div class="col-sm">
+            2 of 2
+        </div>
+    </div>
+
+    <hr>
+
+    <p class="lead">Your dog is a <b>pleb</b></p>
+
+</div>
+{% endblock %}

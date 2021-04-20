@@ -1,21 +1,28 @@
-from flask import Blueprint, render_template, redirect, request, url_for, current_app as app
+from flask import Blueprint, render_template, redirect, request, session, url_for, current_app as app
+from werkzeug.utils import secure_filename
+import os
+
 from .forms import FileUploadForm
 
 # Blueprint Configuration
 bp = Blueprint(
     'bp', __name__,
     template_folder='templates',
+    static_folder='static'
 )
 
-
 @bp.route("/", methods=['GET', 'POST'])
-def updog():
+def index():
     # Upload dog image -- for uploading a file that contains an image (presumably, of a dog)
-    upload_form = FileUploadForm()
-    # May need to change this to validate_on_submit()
-    if upload_form.is_submitted():
-        print('Received a validated pic')
-    return render_template('index.html', form=upload_form)
+    form = FileUploadForm()
+    if form.validate_on_submit():
+        return redirect(url_for("bp.updog"))
+    return render_template('index.html', form=form)
+
+
+@bp.route("/updog", methods=['GET'])
+def updog():
+    return render_template('updog.html')
 
 
 @bp.route("/motivation")

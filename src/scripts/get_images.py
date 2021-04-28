@@ -57,3 +57,4 @@ def save_image_locally(url, dir):
       with open(dir + file_name, 'wb') as f:
         for chunk in r:
           f.write(chunk)
+)

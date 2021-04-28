@@ -11,7 +11,7 @@ if os.name == 'nt':
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-import constants
+from constants import IMAGE_HEIGHT, IMAGE_WIDTH
 
 DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/'
 
@@ -23,8 +23,8 @@ def pad_images_black_border(image, dir=None):
   if img.mode != "RGB":
         img = img.convert("RGB")
 
-  border_height = (constants.IMAGE_HEIGHT - height)
-  border_width = (constants.IMAGE_WIDTH - width)
+  border_height = (IMAGE_HEIGHT - height)
+  border_width = (IMAGE_WIDTH - width)
 
   border = (math.ceil(border_width/2), math.ceil(border_height/2),
             math.floor(border_width/2), math.floor(border_height/2))
@@ -32,6 +32,8 @@ def pad_images_black_border(image, dir=None):
   padded_image = ImageOps.expand(img, border=border)
 
   if dir is None:
+    # Return a numpy array to be processed
+    padded_image = np.array(padded_image)
     return padded_image
   elif dir:
     # Save augmented image into an augmented pics folder
@@ -67,10 +69,10 @@ def downscale_image(image, dir=None):
         img = img.convert("RGB")
 
   new_width, new_height = scale(
-      (width, height), (constants.IMAGE_WIDTH, constants.IMAGE_HEIGHT))
+      (width, height), (IMAGE_WIDTH, IMAGE_HEIGHT))
 
-  border_width = constants.IMAGE_WIDTH - new_width
-  border_height = constants.IMAGE_HEIGHT - new_height
+  border_width = IMAGE_WIDTH - new_width
+  border_height = IMAGE_HEIGHT - new_height
 
   edited_image = img.resize((new_width, new_height))
   border = (border_width, border_height, 0, 0)
@@ -78,6 +80,8 @@ def downscale_image(image, dir=None):
   padded_image = ImageOps.expand(edited_image, border=border)
 
   if dir is None:
+    # Return a numpy array to be processed
+    padded_image = np.array(padded_image)
     return padded_image
   elif dir:
     # Save augmented image into an augmented pics folder
@@ -87,15 +91,14 @@ def downscale_image(image, dir=None):
 
 def prepare_image(image, dir=None):
   # Does not save it to a directory if dir is None.
-  ### Flask --> post request --> saves image to a local path on disk --> use that path to get the image --> process --> predict --> discard/delete image
   img = Image.open(image)
   width, height = img.size
   processed_image = None
 
-  if height > constants.IMAGE_HEIGHT or width > constants.IMAGE_WIDTH:
+  if height > IMAGE_HEIGHT or width > IMAGE_WIDTH:
     processed_image = downscale_image(image, dir)
 
-  if height <= constants.IMAGE_HEIGHT and width <= constants.IMAGE_WIDTH:
+  if height <= IMAGE_HEIGHT and width <= IMAGE_WIDTH:
     processed_image = pad_images_black_border(image, dir)
 
   return processed_image

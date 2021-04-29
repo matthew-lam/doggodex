@@ -11,7 +11,7 @@ if os.name == 'nt':
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-from constants import IMAGE_HEIGHT, IMAGE_WIDTH
+from .constants import IMAGE_HEIGHT, IMAGE_WIDTH
 
 DOG_PIC_DIR = os.getcwd() + '/augmented_dog_pics/'
 

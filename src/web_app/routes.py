@@ -1,17 +1,29 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for, current_app as app
 from werkzeug.utils import secure_filename
 import numpy as np
+from tensorflow import keras
 
 import os
 
 from .forms import FileUploadForm
-from .scripts.data_utils import prepare_image
+from ..data_utils import prepare_image
+
 
 # Blueprint Configuration
 bp = Blueprint(
     'bp', __name__,
     static_folder='static' # Not actually static, just an easy way of storing/accessing files via blueprints
 )
+
+model = None
+
+@bp.before_app_first_request
+def load_model():
+    global model
+    model = keras.models.load_model(
+        os.getcwd() + '/src/model/dog_model', compile=False)
+    print("Model loaded.")
+
 
 @bp.route("/", methods=['GET', 'POST'])
 def index():
@@ -30,7 +42,7 @@ def index():
         # Make a prediction out of the submitted image
         prediction = model.predict(np.expand_dims(prepare_image(image_file), axis=0))
         predicted_class = prediction.argmax(axis=-1)
-        session['predicted_class'] = predicted_class
+        session['predicted_class'] = np.array2string(predicted_class)
         return redirect(url_for("bp.updog"))
     return render_template('index.html', form=form)
 

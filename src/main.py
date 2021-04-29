@@ -1,9 +1,11 @@
-from tensorflow import keras
 import os
-from PIL import Image
-from data_utils import pad_images_black_border, downscale_image, process_all_images_to_fit, split_dataset, prepare_image
-import numpy as np
 import json
+
+from tensorflow import keras
+from PIL import Image
+import numpy as np
+
+from .data_utils import pad_images_black_border, downscale_image, process_all_images_to_fit, split_dataset, prepare_image
 
 def main():
     # Get file path of dog pics dataset.
@@ -20,15 +22,15 @@ def main():
 
 
 def make_prediction():
-#   dirname = os.getcwd()
-#   filepath = os.path.join(dirname, 'dog_pics/')
-#   model = keras.models.load_model(
-#       os.getcwd() + '/src/model/dog_model', compile=False)
-#   image = prepare_image(os.path.join(filepath, 'n02096585-Boston_bull/n02096585_19.jpg'))
-#   prediction = model.predict(np.expand_dims(image,axis=0))
-#   prediction_classes = prediction.argmax(axis=-1)
-#   print(prediction_classes)
+  dirname = os.getcwd()
+  filepath = os.path.join(dirname, 'dog_pics/')
+  model = keras.models.load_model(
+      os.getcwd() + '/src/model/dog_model', compile=False)
+  image = prepare_image(os.path.join(filepath, 'n02096585-Boston_bull/n02096585_19.jpg'))
+  prediction = model.predict(np.expand_dims(image,axis=0))
+  prediction_classes = prediction.argmax(axis=-1)
+  print(prediction_classes)
 
 if __name__ == '__main__':
-    # make_prediction()
+    make_prediction()
     # main()

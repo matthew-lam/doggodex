@@ -17,20 +17,5 @@ def main():
     process_all_images_to_fit(filepath)
     split_dataset(0.8)
 
-    # image = downscale_image(os.path.join(filepath, 'n02085620-Chihuahua/n02085620_199.jpg'))
-    # image = prepare_image(os.path.join(filepath, 'n02085620-Chihuahua/n02085620_7.jpg'))
-
-
-def make_prediction():
-  dirname = os.getcwd()
-  filepath = os.path.join(dirname, 'dog_pics/')
-  model = keras.models.load_model(
-      os.getcwd() + '/src/model/dog_model', compile=False)
-  image = prepare_image(os.path.join(filepath, 'n02096585-Boston_bull/n02096585_19.jpg'))
-  prediction = model.predict(np.expand_dims(image,axis=0))
-  prediction_classes = prediction.argmax(axis=-1)
-  print(prediction_classes)
-
 if __name__ == '__main__':
-    make_prediction()
     # main()

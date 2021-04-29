@@ -4,6 +4,8 @@ import numpy as np
 from tensorflow import keras
 
 import os
+import json
+import re
 
 from .forms import FileUploadForm
 from ..data_utils import prepare_image
@@ -16,6 +18,7 @@ bp = Blueprint(
 )
 
 model = None
+dog_map = os.getcwd() + '/src/dogs.json'
 
 @bp.before_app_first_request
 def load_model():
@@ -31,6 +34,8 @@ def index():
     for file in os.scandir(bp.static_folder):
         os.unlink(file)
 
+    # Setup for predicted class label
+    label = None
     # Render form and ensure that a valid file is submitted
     form = FileUploadForm()
     if form.validate_on_submit():
@@ -41,19 +46,22 @@ def index():
         session['image'] = file_name
         # Make a prediction out of the submitted image
         prediction = model.predict(np.expand_dims(prepare_image(image_file), axis=0))
-        predicted_class = prediction.argmax(axis=-1)
-        session['predicted_class'] = np.array2string(predicted_class)
+        predicted_class = np.array2string(prediction.argmax(axis=-1))
+        predicted_class = int(re.sub("[^0-9]", "", predicted_class))
+        with open(dog_map) as fp:
+            mapping = json.load(fp)
+            # Do the mappings here
+            label = list(mapping.keys())[list(mapping.values()).index(predicted_class)]
+        session['predicted_class_label'] = label.partition("-")[2].replace("_", " ").capitalize()
         return redirect(url_for("bp.updog"))
     return render_template('index.html', form=form)
 
 
 @bp.route("/updog", methods=['GET'])
 def updog():
-    # 2. Extract the prediction from the session and pass it into the template to render too.
-    # 3. Write a callback to delete the files and execute in the template
     image = session['image']
-    predicted_class = session['predicted_class']
-    return render_template('updog.html', image=image, predicted_class=predicted_class)
+    predicted_class_label = session['predicted_class_label']
+    return render_template('updog.html', image=image, predicted_class_label=predicted_class_label)
 
 
 @bp.route("/motivation")

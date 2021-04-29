@@ -25,20 +25,25 @@
             <img src="static/{{ image }}" alt="You aren't supposed to be here yet!" width="500px" height="375px">
         </div>
         <div class="col-sm">
-            {{ predicted_class }}
+            {{ predicted_class_label }}
         </div>
     </div>
 
     <hr>
 
-    <p class="lead">Your dog is a <b>pleb</b></p>
+    <p class="lead">Your dog is a <b>{{ predicted_class_label }}!</b></p>
 
     <hr>
 
     <p class="lead">Hey! Doggodex was <b>wrong</b>!</p>
     <p>Well, its not always correct. Doggodex achieved around an 80% accuracy during training and was trained to 
         only classify 120 different breeds of dogs. There are approximately 300+ breeds of dogs according to online sources, and 
-        Doggodex tries to give you a single result, so it doesn't account for problems such as detecting mixed breeds, 
-        dog breeds outside of the training dataset, and so on.</p>
+        Doggodex tries to give you a single result, so it doesn't account for problems such as:
+        <li>detecting a dog of mixed breeds</li>
+        <li>dog breeds outside of the training dataset,</li>
+        <li>images that contain a lot of visual noise or not of a dog</li>
+        <li>identifying the exact breed of a dog, especially if it looks very similar to another breed</li>
+        and so on.
+    </p>
 </div>
 {% endblock %}

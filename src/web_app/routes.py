@@ -8,7 +8,8 @@ import json
 import re
 
 from .forms import FileUploadForm
-from ..data_utils import prepare_image
+from ..data_utils import prepare_image, scale
+from ..get_images import get_random_image_of_dog_breed
 
 
 # Blueprint Configuration
@@ -18,7 +19,7 @@ bp = Blueprint(
 )
 
 model = None
-dog_map = os.getcwd() + '/src/dogs.json'
+dog_map = os.getcwd() + '/src/dogs.json' # Directory of dog map json file
 
 @bp.before_app_first_request
 def load_model():
@@ -48,20 +49,28 @@ def index():
         prediction = model.predict(np.expand_dims(prepare_image(image_file), axis=0))
         predicted_class = np.array2string(prediction.argmax(axis=-1))
         predicted_class = int(re.sub("[^0-9]", "", predicted_class))
+        # Map the predicted class group to the dog breed label to make it human readable
         with open(dog_map) as fp:
             mapping = json.load(fp)
-            # Do the mappings here
             label = list(mapping.keys())[list(mapping.values()).index(predicted_class)]
-        session['predicted_class_label'] = label.partition("-")[2].replace("_", " ").capitalize()
+        session['predicted_class_label'] = label.partition("-")[2].capitalize()
         return redirect(url_for("bp.updog"))
     return render_template('index.html', form=form)
 
 
 @bp.route("/updog", methods=['GET'])
 def updog():
+    # Extract image and label from sessions
     image = session['image']
     predicted_class_label = session['predicted_class_label']
-    return render_template('updog.html', image=image, predicted_class_label=predicted_class_label)
+    # Make an API call to dog.ceo to get a random image of the predicted dog breed to display to user
+    predicted_dog = get_random_image_of_dog_breed(
+        predicted_class_label.lower())
+    return render_template('updog.html',
+                           image=image,
+                           predicted_class_label=predicted_class_label.replace(
+                               "_", " ").replace("(", "").replace(")", ""),
+                           predicted_dog=predicted_dog)
 
 
 @bp.route("/motivation")

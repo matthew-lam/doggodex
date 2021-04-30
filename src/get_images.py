@@ -1,12 +1,13 @@
 import os
+import re
 import requests
 
 dog_pic_dir = os.getcwd() + '/dog_pics/'
 
 
-def _json_to_list_of_urls(json):
+def _json_to_list_of_urls(response):
   # When querying for a random image from dog.ceo, extract the URLs of the images and return it in a list form
-  return json['message']
+  return response['message']
 
 
 def get_random_dog_images(quantity=20):
@@ -22,11 +23,26 @@ def get_random_dog_images(quantity=20):
   return image_list
 
 
-def get_dog_breed_random_images(breed, quantity):
-  url_string = 'https://dog.ceo/api/breed/{breed}/images/random/{quantity}'.format(breed=breed, quantity=quantity)
-  images = requests.get(url_string)
-  image_list = _json_to_list_of_urls(images.json())
-  return image_list
+def is_sub_breed(breed):
+  # If a "_" is included in the name, it is a sub-breed.
+  if "_" in breed:
+    return True
+  else:
+    return False
+
+
+def get_random_image_of_dog_breed(breed):
+  if is_sub_breed(breed):
+    variant, _, dog_type = breed.partition("_")
+    variant = re.sub(r'\([^)]*\)', '', variant).replace("-", "")
+    dog_type = re.sub(r'\([^)]*\)', '', dog_type).replace("-", "").replace("_", "")
+    url_string = 'https://dog.ceo/api/breed/{dog_type}/{variant}/images/random/'.format(variant=variant.replace("-", ""), dog_type=dog_type)
+  else:
+    url_string = 'https://dog.ceo/api/breed/{breed}/images/random/'.format(breed=breed.replace("-", ""))
+  print(url_string)
+  response = requests.get(url_string)
+  image = _json_to_list_of_urls(response.json())
+  return image
 
 
 def check_url_contains_valid_image(image_url):
@@ -57,4 +73,3 @@ def save_image_locally(url, dir):
       with open(dir + file_name, 'wb') as f:
         for chunk in r:
           f.write(chunk)
-)

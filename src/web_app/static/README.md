@@ -1,0 +1,1 @@
+An empty folder to act as a storage to serve pics in '/updog' route. It definitely isn't a static folder and its mostly just used for convenience.

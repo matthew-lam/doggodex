@@ -21,7 +21,7 @@ def pad_images_black_border(image, dir=None):
   img = Image.open(image)
   width, height = img.size
   if img.mode != "RGB":
-        img = img.convert("RGB")
+      img = img.convert("RGB")
 
   border_height = (IMAGE_HEIGHT - height)
   border_width = (IMAGE_WIDTH - width)
@@ -66,7 +66,7 @@ def downscale_image(image, dir=None):
   img = Image.open(image)
   width, height = img.size
   if img.mode != "RGB":
-        img = img.convert("RGB")
+      img = img.convert("RGB")
 
   new_width, new_height = scale(
       (width, height), (IMAGE_WIDTH, IMAGE_HEIGHT))
@@ -153,3 +153,10 @@ def split_dataset(training_split, dir=DOG_PIC_DIR):
         shutil.move(os.path.join(dir, dog_breeds + '/' + file),
                     validation_dog_breed_dir)
       os.rmdir(os.path.join(dir, dog_breeds))
+
+
+def recursive_remove_files(dir, excluded_file=None):
+    # Ensures that folder holding images is empty first.
+    for file in os.scandir(dir):
+        if excluded_file not in file.name:
+            os.unlink(file)

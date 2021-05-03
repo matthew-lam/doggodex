@@ -33,9 +33,12 @@ def is_sub_breed(breed):
 
 def get_random_image_of_dog_breed(breed):
   if is_sub_breed(breed):
+    # Enclosed brackets in JSON are used for omitting the word but still allowing for full name to be displayed. Can be cleaned up, but works for now.
     variant, _, dog_type = breed.partition("_")
     variant = re.sub(r'\([^)]*\)', '', variant).replace("-", "")
     dog_type = re.sub(r'\([^)]*\)', '', dog_type).replace("-", "").replace("_", "")
+    print(variant)
+    print(dog_type)
     url_string = 'https://dog.ceo/api/breed/{dog_type}/{variant}/images/random/'.format(variant=variant.replace("-", ""), dog_type=dog_type)
   else:
     url_string = 'https://dog.ceo/api/breed/{breed}/images/random/'.format(breed=breed.replace("-", ""))

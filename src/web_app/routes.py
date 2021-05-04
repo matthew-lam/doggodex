@@ -52,15 +52,14 @@ def index():
         # Make a prediction out of the submitted image
         prediction = model.predict(np.expand_dims(
             prepare_image(image_file), axis=0))
-        predicted_class = np.array2string(prediction.argmax(axis=-1))
-        predicted_class = int(re.sub("[^0-9]", "", predicted_class))
+        predicted_class_key = np.array2string(prediction.argmax(axis=-1))
+        predicted_class_key = re.sub("[^0-9]", "", predicted_class_key)
 
         # Map the predicted class group to the dog breed label to make it human readable
         with open(dog_map) as fp:
             mapping = json.load(fp)
-            label = list(mapping.keys())[
-                list(mapping.values()).index(predicted_class)]
-        session['predicted_class_label'] = label.partition("-")[2].capitalize()
+            class_entry = mapping.get(predicted_class_key)
+        session['predicted_class'] = class_entry
 
         return redirect(url_for("bp.updog"))
     return render_template('index.html', form=form)
@@ -70,15 +69,14 @@ def index():
 def updog():
     # Extract image and label from sessions
     image = session['image']
-    predicted_class_label = session['predicted_class_label']
+    predicted_class = session['predicted_class']
 
     # Make an API call to dog.ceo to get a random image of the predicted dog breed to display to user
     predicted_dog = get_random_image_of_dog_breed(
-        predicted_class_label.lower())
+        predicted_class['dog_api'].lower())
 
     # Omit JSON specific regex to make label more human readable
-    predicted_class_label = predicted_class_label.replace(
-        "_", " ").replace("(", "").replace(")", "")
+    predicted_class_label = predicted_class['wikipedia'].replace("_", " ").replace("-", "")
 
     # Create instance of scheduler to delete uploaded photo once served to the html page as they will no longer be needed
     scheduler = sched.scheduler(time.time, time.sleep)

@@ -1,122 +1,482 @@
 {
-    "n02085620-Chihuahua": 0,
-    "n02085782-Japanese_spaniel": 1,
-    "n02085936-Maltese_dog": 2,
-    "n02086079-Pekinese": 3,
-    "n02086240-Shih-Tzu": 4,
-    "n02086646-Blenheim_spaniel": 5,
-    "n02086910-papillon": 6,
-    "n02087046-toy_terrier": 7,
-    "n02087394-Rhodesian_ridgeback": 8,
-    "n02088094-Afghan_hound": 9,
-    "n02088238-basset": 10,
-    "n02088364-beagle": 11,
-    "n02088466-bloodhound": 12,
-    "n02088632-bluetick": 13,
-    "n02089078-coonhound": 14,
-    "n02089867-Walker_hound": 15,
-    "n02089973-English_foxhound": 16,
-    "n02090379-redbone": 17,
-    "n02090622-borzoi": 18,
-    "n02090721-Irish_wolfhound": 19,
-    "n02091032-Italian_greyhound": 20,
-    "n02091134-whippet": 21,
-    "n02091244-Ibizan_hound": 22,
-    "n02091467-Norwegian_elkhound": 23,
-    "n02091635-otterhound": 24,
-    "n02091831-Saluki": 25,
-    "n02092002-Scottish_deerhound": 26,
-    "n02092339-Weimaraner": 27,
-    "n02093256-Staffordshire_bullterrier": 28,
-    "n02093428-American_Staffordshire_terrier": 29,
-    "n02093647-Bedlington_terrier": 30,
-    "n02093754-Border_terrier": 31,
-    "n02093859-Kerry_blue_terrier": 32,
-    "n02093991-Irish_terrier": 33,
-    "n02094114-Norfolk_terrier": 34,
-    "n02094258-Norwich_terrier": 35,
-    "n02094433-Yorkshire_terrier": 36,
-    "n02095314-(wire-)fox_terrier": 37,
-    "n02095570-Lakeland_terrier": 38,
-    "n02095889-Sealyham_terrier": 39,
-    "n02096051-Airedale": 40,
-    "n02096177-cairn": 41,
-    "n02096294-Australian_terrier": 42,
-    "n02096437-Dandie_Dinmont": 43,
-    "n02096585-Boston_bulldog": 44,
-    "n02097047-miniature_schnauzer": 45,
-    "n02097130-giant_schnauzer": 46,
-    "n02097209-standard_schnauzer": 47,
-    "n02097298-Scotch_terrier": 48,
-    "n02097474-Tibetan_terrier": 49,
-    "n02097658-silky_terrier": 50,
-    "n02098105-wheaten_terrier": 51,
-    "n02098286-West-Highland_terrier": 52,
-    "n02098413-Lhasa": 53,
-    "n02099267-flat-coated_retriever": 54,
-    "n02099429-curly-coated_retriever": 55,
-    "n02099601-golden_retriever": 56,
-    "n02099712-Labrador_retriever": 57,
-    "n02099849-Chesapeake_Bay_retriever": 58,
-    "n02100236-German_short-haired_pointer": 59,
-    "n02100583-vizsla": 60,
-    "n02100735-English_setter": 61,
-    "n02100877-Irish_setter": 62,
-    "n02101006-Gordon_setter": 63,
-    "n02101388-Brittany_spaniel": 64,
-    "n02101556-clumber": 65,
-    "n02102040-English_springer": 66,
-    "n02102177-Welsh_(springer)_spaniel": 67,
-    "n02102318-cocker_spaniel": 68,
-    "n02102480-Sussex_spaniel": 69,
-    "n02102973-Irish_(water)_spaniel": 70,
-    "n02104029-kuvasz": 71,
-    "n02104365-schipperke": 72,
-    "n02105056-groenendael": 73,
-    "n02105162-malinois": 74,
-    "n02105251-briard": 75,
-    "n02105412-kelpie": 76,
-    "n02105505-komondor": 77,
-    "n02105641-Old_English_sheepdog": 78,
-    "n02105855-Shetland_sheepdog": 79,
-    "n02106030-collie": 80,
-    "n02106166-Border_collie": 81,
-    "n02106382-Bouvier_des_Flandres": 82,
-    "n02106550-Rottweiler": 83,
-    "n02106662-German_shepherd": 84,
-    "n02107142-Doberman": 85,
-    "n02107312-miniature_pinscher": 86,
-    "n02107574-(Greater_)Swiss_Mountain(_dog)": 87,
-    "n02107683-Bernese_mountain(_dog)": 88,
-    "n02107908-Appenzeller": 89,
-    "n02108000-EntleBucher": 90,
-    "n02108089-boxer": 91,
-    "n02108422-bull_mastiff": 92,
-    "n02108551-Tibetan_mastiff": 93,
-    "n02108915-French_bulldog": 94,
-    "n02109047-Great_Dane": 95,
-    "n02109525-Saint_Bernard": 96,
-    "n02109961-Eskimo_dog": 97,
-    "n02110063-malamute": 98,
-    "n02110185-Husky": 99,
-    "n02110627-affenpinscher": 100,
-    "n02110806-basenji": 101,
-    "n02110958-pug": 102,
-    "n02111129-Leonberg": 103,
-    "n02111277-Newfoundland": 104,
-    "n02111500-Great_Pyrenees": 105,
-    "n02111889-Samoyed": 106,
-    "n02112018-Pomeranian": 107,
-    "n02112137-chow": 108,
-    "n02112350-keeshond": 109,
-    "n02112706-Brabancon_griffon": 110,
-    "n02113023-Pembroke": 111,
-    "n02113186-Cardigan_(Welsh)_Corgi": 112,
-    "n02113624-toy_poodle": 113,
-    "n02113712-miniature_poodle": 114,
-    "n02113799-standard_poodle": 115,
-    "n02113978-Mexican-hairless": 116,
-    "n02115641-dingo": 117,
-    "n02115913-dhole": 118,
-    "n02116738-African_hunting_dog": 119
+    "0": {
+        "wikipedia": "Chihuahua_dog",
+        "dog_api": "Chihuahua"
+    },
+    "1": {
+        "wikipedia": "Japanese_spaniel",
+        "dog_api": "Japanese_spaniel"
+    },
+    "2": {
+        "wikipedia": "Maltese_dog",
+        "dog_api": "Maltese"
+    },
+    "3": {
+        "wikipedia": "Pekinese",
+        "dog_api": "Pekinese"
+    },
+    "4": {
+        "wikipedia": "Shih-tzu",
+        "dog_api": "Shih-tzu"
+    },
+    "5": {
+        "wikipedia": "Cavalier King Charles Spaniel",
+        "dog_api": "Blenheim_spaniel"
+    },
+    "6": {
+        "wikipedia": "Papillon_dog",
+        "dog_api": "Papillon"
+    },
+    "7": {
+        "wikipedia": "Toy_Fox_Terrier",
+        "dog_api": "Toy_terrier"
+    },
+    "8": {
+        "wikipedia": "Rhodesian_ridgeback",
+        "dog_api": "Rhodesian_ridgeback"
+    },
+    "9": {
+        "wikipedia": "Afghan_hound",
+        "dog_api": "Afghan_hound"
+    },
+    "10": {
+        "wikipedia": "Basset_Hound",
+        "dog_api": "Basset_hound"
+    },
+    "11": {
+        "wikipedia": "Beagle",
+        "dog_api": "Beagle"
+    },
+    "12": {
+        "wikipedia": "Bloodhound",
+        "dog_api": "Blood_hound"
+    },
+    "13": {
+        "wikipedia": "Bluetick_Coonhound",
+        "dog_api": "Bluetick"
+    },
+    "14": {
+        "wikipedia": "Black_and_tan_coonhound",
+        "dog_api": "Coonhound"
+    },
+    "15": {
+        "wikipedia": "Treeing_Walker_Coonhound",
+        "dog_api": "Walker_hound"
+    },
+    "16": {
+        "wikipedia": "English_Foxhound",
+        "dog_api": "English_hound"
+    },
+    "17": {
+        "wikipedia": "Redbone_Coonhound",
+        "dog_api": "Redbone"
+    },
+    "18": {
+        "wikipedia": "Borzoi",
+        "dog_api": "Borzoi"
+    },
+    "19": {
+        "wikipedia": "Irish_wolfhound",
+        "dog_api": "Irish_wolfhound"
+    },
+    "20": {
+        "wikipedia": "Italian_greyhound",
+        "dog_api": "Italian_greyhound"
+    },
+    "21": {
+        "wikipedia": "Whippet",
+        "dog_api": "Whippet"
+    },
+    "22": {
+        "wikipedia": "Ibizan_hound",
+        "dog_api": "Ibizan_hound"
+    },
+    "23": {
+        "wikipedia": "Norwegian_elkhound",
+        "dog_api": "Norwegian_elkhound"
+    },
+    "24": {
+        "wikipedia": "Otterhound",
+        "dog_api": "Otterhound"
+    },
+    "25": {
+        "wikipedia": "Saluki",
+        "dog_api": "Saluki"
+    },
+    "26": {
+        "wikipedia": "Scottish_deerhound",
+        "dog_api": "Scottish_deerhound"
+    },
+    "27": {
+        "wikipedia": "Weimaraner",
+        "dog_api": "Weimaraner"
+    },
+    "28": {
+        "wikipedia": "Staffordshire_Bull_Terrier",
+        "dog_api": "Staffordshire_bullterrier"
+    },
+    "29": {
+        "wikipedia": "American_Staffordshire_Terrier",
+        "dog_api": "American_terrier"
+    },
+    "30": {
+        "wikipedia": "Bedlington_terrier",
+        "dog_api": "Bedlington_terrier"
+    },
+    "31": {
+        "wikipedia": "Border_terrier",
+        "dog_api": "Border_terrier"
+    },
+    "32": {
+        "wikipedia": "Kerry_blue_terrier",
+        "dog_api": "Kerryblue_terrier"
+    },
+    "33": {
+        "wikipedia": "Irish_terrier",
+        "dog_api": "Irish_terrier"
+    },
+    "34": {
+        "wikipedia": "Norfolk_terrier",
+        "dog_api": "Norfolk_terrier"
+    },
+    "35": {
+        "wikipedia": "Norwich_terrier",
+        "dog_api": "Norwich_terrier"
+    },
+    "36": {
+        "wikipedia": "Yorkshire_terrier",
+        "dog_api": "Yorkshire_terrier"
+    },
+    "37": {
+        "wikipedia": "Wire_Fox_Terrier",
+        "dog_api": "Fox_terrier"
+    },
+    "38": {
+        "wikipedia": "Lakeland_terrier",
+        "dog_api": "Lakeland_terrier"
+    },
+    "39": {
+        "wikipedia": "Sealyham_terrier",
+        "dog_api": "Sealyham_terrier"
+    },
+    "40": {
+        "wikipedia": "Airedale_Terrier",
+        "dog_api": "Airedale"
+    },
+    "41": {
+        "wikipedia": "Cairn_Terrier",
+        "dog_api": "Cairn"
+    },
+    "42": {
+        "wikipedia": "Australian_terrier",
+        "dog_api": "Australian_terrier"
+    },
+    "43": {
+        "wikipedia": "Dandie_Dinmont_Terrier",
+        "dog_api": "Dandie_Terrier"
+    },
+    "44": {
+        "wikipedia": "Boston_Terrier",
+        "dog_api": "Boston_bulldog"
+    },
+    "45": {
+        "wikipedia": "Miniature_schnauzer",
+        "dog_api": "Miniature_schnauzer"
+    },
+    "46": {
+        "wikipedia": "Giant_schnauzer",
+        "dog_api": "Giant_schnauzer"
+    },
+    "47": {
+        "wikipedia": "Standard_schnauzer",
+        "dog_api": "Schnauzer"
+    },
+    "48": {
+        "wikipedia": "Scottish_Terrier",
+        "dog_api": "Scottish_Terrier"
+    },
+    "49": {
+        "wikipedia": "Tibetan_terrier",
+        "dog_api": "Tibetan_terrier"
+    },
+    "50": {
+        "wikipedia": "Australian_Silky_Terrier",
+        "dog_api": "Silky_terrier"
+    },
+    "51": {
+        "wikipedia": "Soft-coated_wheaten_terrier",
+        "dog_api": "Wheaten_Terrier"
+    },
+    "52": {
+        "wikipedia": "West_highland_white_terrier",
+        "dog_api": "Westhighland_Terrier"
+    },
+    "53": {
+        "wikipedia": "Lhasa_Apso",
+        "dog_api": "Lhasa"
+    },
+    "54": {
+        "wikipedia": "Flat-coated_retriever",
+        "dog_api": "Flat-coated_retriever"
+    },
+    "55": {
+        "wikipedia": "Curly-coated_retriever",
+        "dog_api": "Curly_Retriever"
+    },
+    "56": {
+        "wikipedia": "Golden_retriever",
+        "dog_api": "Golden_retriever"
+    },
+    "57": {
+        "wikipedia": "Labrador_retriever",
+        "dog_api": "Labrador"
+    },
+    "58": {
+        "wikipedia": "Chesapeake_Bay_Retriever",
+        "dog_api": "Chesapeake_Retriever"
+    },
+    "59": {
+        "wikipedia": "German_Shorthaired_Pointer",
+        "dog_api": "German_pointer"
+    },
+    "60": {
+        "wikipedia": "Vizsla",
+        "dog_api": "Vizsla"
+    },
+    "61": {
+        "wikipedia": "English_setter",
+        "dog_api": "English_setter"
+    },
+    "62": {
+        "wikipedia": "Irish_setter",
+        "dog_api": "Irish_setter"
+    },
+    "63": {
+        "wikipedia": "Gordon_setter",
+        "dog_api": "Gordon_setter"
+    },
+    "64": {
+        "wikipedia": "Brittany_spaniel",
+        "dog_api": "Brittany_spaniel"
+    },
+    "65": {
+        "wikipedia": "Clumber_Spaniel",
+        "dog_api": "Clumber"
+    },
+    "66": {
+        "wikipedia": "English_Springer_Spaniel",
+        "dog_api": "English_springer"
+    },
+    "67": {
+        "wikipedia": "Welsh_springer_spaniel",
+        "dog_api": "Welsh_Spaniel"
+    },
+    "68": {
+        "wikipedia": "Cocker_spaniel",
+        "dog_api": "Cocker_spaniel"
+    },
+    "69": {
+        "wikipedia": "Sussex_spaniel",
+        "dog_api": "Sussex_spaniel"
+    },
+    "70": {
+        "wikipedia": "Irish_water_spaniel",
+        "dog_api": "Irish_Spaniel"
+    },
+    "71": {
+        "wikipedia": "Kuvasz",
+        "dog_api": "Kuvasz"
+    },
+    "72": {
+        "wikipedia": "Schipperke",
+        "dog_api": "Schipperke"
+    },
+    "73": {
+        "wikipedia": "Groenendael",
+        "dog_api": "Groenendael"
+    },
+    "74": {
+        "wikipedia": "Malinois",
+        "dog_api": "Malinois"
+    },
+    "75": {
+        "wikipedia": "Briard",
+        "dog_api": "Briard"
+    },
+    "76": {
+        "wikipedia": "Australian_Kelpie",
+        "dog_api": "Kelpie"
+    },
+    "77": {
+        "wikipedia": "Komondor",
+        "dog_api": "Komondor"
+    },
+    "78": {
+        "wikipedia": "Old_English_Sheepdog",
+        "dog_api": "English_sheepdog"
+    },
+    "79": {
+        "wikipedia": "Shetland_sheepdog",
+        "dog_api": "Shetland_sheepdog"
+    },
+    "80": {
+        "wikipedia": "Collie",
+        "dog_api": "Collie"
+    },
+    "81": {
+        "wikipedia": "Border_collie",
+        "dog_api": "Border_collie"
+    },
+    "82": {
+        "wikipedia": "Bouvier_des_flandres",
+        "dog_api": "Bouvier"
+    },
+    "83": {
+        "wikipedia": "Rottweiler",
+        "dog_api": "Rottweiler"
+    },
+    "84": {
+        "wikipedia": "German_shepherd",
+        "dog_api": "Germanshepherd"
+    },
+    "85": {
+        "wikipedia": "Dobermann",
+        "dog_api": "Doberman"
+    },
+    "86": {
+        "wikipedia": "Miniature_pinscher",
+        "dog_api": "Miniature_pinscher"
+    },
+    "87": {
+        "wikipedia": "Greater_Swiss_Mountain_Dog",
+        "dog_api": "Swiss_Mountain"
+    },
+    "88": {
+        "wikipedia": "Bernese_mountain_dog",
+        "dog_api": "Bernese_Mountain"
+    },
+    "89": {
+        "wikipedia": "Appenzeller_Sennenhund",
+        "dog_api": "Appenzeller"
+    },
+    "90": {
+        "wikipedia": "Entlebucher_Mountain_Dog",
+        "dog_api": "Entlebucher"
+    },
+    "91": {
+        "wikipedia": "Boxer_dog",
+        "dog_api": "Boxer"
+    },
+    "92": {
+        "wikipedia": "Bull_mastiff",
+        "dog_api": "Bull_mastiff"
+    },
+    "93": {
+        "wikipedia": "Tibetan_mastiff",
+        "dog_api": "Tibetan_mastiff"
+    },
+    "94": {
+        "wikipedia": "French_bulldog",
+        "dog_api": "French_bulldog"
+    },
+    "95": {
+        "wikipedia": "Great_dane",
+        "dog_api": "Great_dane"
+    },
+    "96": {
+        "wikipedia": "St._Bernard_dog",
+        "dog_api": "Stbernard"
+    },
+    "97": {
+        "wikipedia": "Canadian_Eskimo_Dog",
+        "dog_api": "Eskimo"
+    },
+    "98": {
+        "wikipedia": "Malamute",
+        "dog_api": "Malamute"
+    },
+    "99": {
+        "wikipedia": "Siberian_husky",
+        "dog_api": "Husky"
+    },
+    "100": {
+        "wikipedia": "Affenpinscher",
+        "dog_api": "Affenpinscher"
+    },
+    "101": {
+        "wikipedia": "Basenji",
+        "dog_api": "Basenji"
+    },
+    "102": {
+        "wikipedia": "Pug",
+        "dog_api": "Pug"
+    },
+    "103": {
+        "wikipedia": "Leonberger",
+        "dog_api": "Leonberg"
+    },
+    "104": {
+        "wikipedia": "Newfoundland_dog",
+        "dog_api": "Newfoundland"
+    },
+    "105": {
+        "wikipedia": "Pyrenean_Mountain_Dog",
+        "dog_api": "Pyrenees"
+    },
+    "106": {
+        "wikipedia": "Samoyed_dog",
+        "dog_api": "Samoyed"
+    },
+    "107": {
+        "wikipedia": "Pomeranian_dog",
+        "dog_api": "Pomeranian"
+    },
+    "108": {
+        "wikipedia": "Chow_Chow",
+        "dog_api": "Chow"
+    },
+    "109": {
+        "wikipedia": "Keeshond",
+        "dog_api": "Keeshond"
+    },
+    "110": {
+        "wikipedia": "Griffon_Bruxellois",
+        "dog_api": "Brabancon"
+    },
+    "111": {
+        "wikipedia": "Pembroke_Welsh_Corgi",
+        "dog_api": "Pembroke"
+    },
+    "112": {
+        "wikipedia": "Cardigan_Welsh_Corgi",
+        "dog_api": "Cardigan_Corgi"
+    },
+    "113": {
+        "wikipedia": "Toy_poodle",
+        "dog_api": "Toy_poodle"
+    },
+    "114": {
+        "wikipedia": "Miniature_poodle",
+        "dog_api": "Miniature_poodle"
+    },
+    "115": {
+        "wikipedia": "Standard_poodle",
+        "dog_api": "Standard_poodle"
+    },
+    "116": {
+        "wikipedia": "Mexican_hairless_dog",
+        "dog_api": "Mexicanhairless"
+    },
+    "117": {
+        "wikipedia": "Dingo",
+        "dog_api": "Dingo"
+    },
+    "118": {
+        "wikipedia": "Dhole",
+        "dog_api": "Dhole"
+    },
+    "119": {
+        "wikipedia": "African_hunting_dog",
+        "dog_api": "African"
+    }
 }

@@ -13,32 +13,40 @@
 
     <div class="row">
         <div class="col-sm">
-            <small class="text-muted">Your image</small>
+            <h5><small class="text-muted">Your image</small></h5>
         </div>
         <div class="col-sm">
-            <small class="text-muted">Prediction result</small>
+            <h5><small class="text-muted">Prediction result</small></h5>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm">
-            <img src="temp/{{ image }}" alt="You aren't supposed to be here yet!" width="auto" height="auto">
+            <img src="temp/{{ image }}" alt="You aren't supposed to be here yet!" width="auto" height="375px">
         </div>
         <div class="col-sm">
-            <img src="{{ predicted_dog }}" alt="No picture available." width="auto" height="auto">
+            <img src="{{ predicted_dog }}" alt="No picture available." width="auto" height="375px">
         </div>
     </div>
 
     <hr>
 
-    <p class="lead">Your dog is a <b>{{ predicted_class_label }}!</b></p>
+    <p class="lead">Doggodex thinks that you look like a <b>{{ predicted_class_label }}!</b></p>
+    
+    <hr>
 
+    <br>
+    <div class="row">
+        <iframe src="{{ wiki_entry }}" height="500px"></iframe>
+    </div>
+    <br>
     <hr>
 
     <p class="lead">Hey! Doggodex was <b>wrong</b>!</p>
     <p>Well, its not always correct. Doggodex achieved around an 80% accuracy during training and was trained to 
         only classify 120 different breeds of dogs. There are approximately 300+ breeds of dogs according to online sources, and 
         Doggodex tries to give you a single result, so it will try its best to give you a definitive answer according to the model.
+        <br>
         The scenarios Doggodex struggles with are:
         <li>detecting a dog of mixed breeds</li>
         <li>dog breeds outside of the training dataset,</li>

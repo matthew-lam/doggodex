@@ -79,5 +79,5 @@ def get_random_image_of_dog_breed(breed):
 
 
 def get_wikipedia_entry_of_dog_breed(breed):
-    url_string = "https://en.wikipedia.org/wiki/{breed}".format(breed=breed)
+    url_string = "https://en.wikipedia.org/wiki/{breed}?printable=yes".format(breed=breed)
     return url_string

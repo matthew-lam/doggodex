@@ -12,7 +12,7 @@ import time
 
 from .forms import FileUploadForm
 from ..data_utils import prepare_image, recursive_remove_files
-from ..get_images import get_random_image_of_dog_breed
+from ..get_images import get_random_image_of_dog_breed, get_wikipedia_entry_of_dog_breed
 
 
 # Constants
@@ -53,6 +53,7 @@ def index():
         prediction = model.predict(np.expand_dims(
             prepare_image(image_file), axis=0))
         predicted_class_key = np.array2string(prediction.argmax(axis=-1))
+        top_5_predictions = np.ndarray.tolist(np.argsort(prediction, axis=1)[:,-5:])[0] # Finish this
         predicted_class_key = re.sub("[^0-9]", "", predicted_class_key)
 
         # Map the predicted class group to the dog breed label to make it human readable
@@ -78,6 +79,9 @@ def updog():
     # Omit JSON specific regex to make label more human readable
     predicted_class_label = predicted_class['wikipedia'].replace("_", " ").replace("-", "")
 
+    # Get wikipedia entry URL for dog breed to load into iFrame in template
+    wiki_dog = get_wikipedia_entry_of_dog_breed(predicted_class['wikipedia'])
+
     # Create instance of scheduler to delete uploaded photo once served to the html page as they will no longer be needed
     scheduler = sched.scheduler(time.time, time.sleep)
     scheduler.enter(10, 1, recursive_remove_files,
@@ -89,7 +93,8 @@ def updog():
     return render_template('updog.html',
                            image=image,
                            predicted_class_label=predicted_class_label,
-                           predicted_dog=predicted_dog)
+                           predicted_dog=predicted_dog,
+                           wiki_entry=wiki_dog)
 
 
 @bp.route("/motivation")

@@ -42,5 +42,5 @@ def sort_dict():
 
 if __name__ == '__main__':
     # sort_dict()
-    get_dog()
+    # get_dog()
     # main()

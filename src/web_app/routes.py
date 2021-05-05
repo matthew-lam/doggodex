@@ -49,18 +49,25 @@ def index():
         form.file.data.save(image_file)
         session['image'] = file_name
 
-        # Make a prediction out of the submitted image
+        # Get a prediction out of the submitted image
         prediction = model.predict(np.expand_dims(
             prepare_image(image_file), axis=0))
         predicted_class_key = np.array2string(prediction.argmax(axis=-1))
-        top_5_predictions = np.ndarray.tolist(np.argsort(prediction, axis=1)[:,-5:])[0] # Finish this
         predicted_class_key = re.sub("[^0-9]", "", predicted_class_key)
 
-        # Map the predicted class group to the dog breed label to make it human readable
+        # Get top 5 predictions out of the submitted image
+        top_5_predictions = np.ndarray.tolist(np.argsort(prediction, axis=1)[:,-5:])[0] # Finish this
+
+        # Map the predicted class group(s) to the dog breed label(s) to make it human readable
         with open(dog_map) as fp:
             mapping = json.load(fp)
             class_entry = mapping.get(predicted_class_key)
+            for count, value in enumerate(top_5_predictions):
+                top_5_predictions[count] = mapping.get(str(value))
+            # Reverse to get in descending order of probability predictions
+            top_5_predictions.reverse()
         session['predicted_class'] = class_entry
+        session['top_5_classes'] = top_5_predictions
 
         return redirect(url_for("bp.updog"))
     return render_template('index.html', form=form)
@@ -71,6 +78,7 @@ def updog():
     # Extract image and label from sessions
     image = session['image']
     predicted_class = session['predicted_class']
+    top_5_classes = session['top_5_classes']
 
     # Make an API call to dog.ceo to get a random image of the predicted dog breed to display to user
     predicted_dog = get_random_image_of_dog_breed(
@@ -78,6 +86,8 @@ def updog():
 
     # Omit JSON specific regex to make label more human readable
     predicted_class_label = predicted_class['wikipedia'].replace("_", " ").replace("-", "")
+    for count, value in enumerate(top_5_classes):
+        top_5_classes[count] = value['wikipedia'].replace("_", " ").replace("-", "")
 
     # Get wikipedia entry URL for dog breed to load into iFrame in template
     wiki_dog = get_wikipedia_entry_of_dog_breed(predicted_class['wikipedia'])
@@ -93,6 +103,7 @@ def updog():
     return render_template('updog.html',
                            image=image,
                            predicted_class_label=predicted_class_label,
+                           top_5_classes=top_5_classes,
                            predicted_dog=predicted_dog,
                            wiki_entry=wiki_dog)
 

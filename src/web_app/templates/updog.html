@@ -14,17 +14,10 @@
     <div class="row">
         <div class="col-sm">
             <h5><small class="text-muted">Your image</small></h5>
-        </div>
-        <div class="col-sm">
-            <h5><small class="text-muted">Prediction result</small></h5>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm">
             <img src="temp/{{ image }}" alt="You aren't supposed to be here yet!" width="auto" height="375px">
         </div>
         <div class="col-sm">
+            <h5><small class="text-muted">Prediction result</small></h5>
             <img src="{{ predicted_dog }}" alt="No picture available." width="auto" height="375px">
         </div>
     </div>
@@ -32,6 +25,17 @@
     <hr>
 
     <p class="lead">Doggodex thinks that you look like a <b>{{ predicted_class_label }}!</b></p>
+
+    <div class="small">
+        <p>If you're not a <b>{{ predicted_class_label }} </b>, then Doggodex thinks that you are one of the following:
+            <ul>
+                <li>{{ top_5_classes[1] }}</li>
+                <li>{{ top_5_classes[2] }}</li>
+                <li>{{ top_5_classes[3] }}</li>
+                <li>{{ top_5_classes[4] }}</li>
+            </ul>
+        </p>
+    </div>
     
     <hr>
 
@@ -43,7 +47,7 @@
     <hr>
 
     <p class="lead">Hey! Doggodex was <b>wrong</b>!</p>
-    <p>Well, its not always correct. Doggodex achieved around an 80% accuracy during training and was trained to 
+    <p>Well, its not always correct. Doggodex achieved around an 75% accuracy during training and was trained to 
         only classify 120 different breeds of dogs. There are approximately 300+ breeds of dogs according to online sources, and 
         Doggodex tries to give you a single result, so it will try its best to give you a definitive answer according to the model.
         <br>
@@ -54,7 +58,9 @@
         <li>images that do not contain a dog</li>
         <li>identifying the breed of a dog that shares a lot of visual similarties to other dog breeds</li>
         <br>
-        ...and so on!
     </p>
+
+    <hr>
+
 </div>
 {% endblock %}
